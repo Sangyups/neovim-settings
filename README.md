@@ -1,11 +1,39 @@
 # neovim-settings
 
+## Pre-Requisite
+
+You can either backup or delete your old neovim settings before applying this settings.
+
+### Back up your neovim settings
+
+```sh
+# required
+mv ~/.config/nvim{,.bak}
+
+# optional but recommended
+mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}
+```
+
+### Delete your neovim settings
+
+```sh
+# required
+rm -rf ~/.config/nvim
+
+# optional but recommended
+rm -rf ~/.local/share/nvim
+rm -rf ~/.local/state/nvim
+rm -rf ~/.cache/nvim
+```
+
 ## How to Install
 
 First, clone this repository.
 
 ```sh
-git clone https://github.com/Sangyups/neovim-settings.git
+git clone https://github.com/Sangyups/neovim-settings.git ~/.config/nvim
 ```
 
 ### Install Neovim
