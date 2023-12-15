@@ -5,11 +5,14 @@ local keymap = vim.keymap -- for conciseness
 
 ---------------------
 -- General Keymaps -------------------
--- paste without yanking selected
-keymap.set("x", "<S-p>", [["_dP]])
 
--- clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+-- yank & paste
+-- paste without yanking selected
+keymap.set("x", "<S-p>", [["_dP]], { desc = "Paste without yanking selected" })
+keymap.set({ "n", "x" }, "<S-y>", [["+y]], { desc = "Yank to system clipboard" })
+
+keymap.set("n", "<C-d>", "<C-d>zz")
+keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
