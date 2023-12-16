@@ -11,6 +11,12 @@ local keymap = vim.keymap -- for conciseness
 keymap.set("x", "<S-p>", [["_dP]], { desc = "Paste without yanking selected" })
 keymap.set({ "n", "x" }, "<S-y>", [["+y]], { desc = "Yank to system clipboard" })
 
+-- paste in insert mode
+keymap.set("i", "<S-p>", "<Esc><S-p>i", { remap = false })
+
+-- navigation enhancement
+keymap.set("i", "<C-h>", "<Left>")
+keymap.set("i", "<C-l>", "<Right>")
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
