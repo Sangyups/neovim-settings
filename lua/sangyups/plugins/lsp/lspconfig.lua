@@ -103,19 +103,25 @@ return {
             },
         })
 
-        -- configure go server
         lspconfig["gopls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
 
-        -- configure json server
         lspconfig["jsonls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
 
         lspconfig["dockerls"].setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-cbt setfiletype dockerfile")
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-prod setfiletype dockerfile")
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-dev setfiletype dockerfile")
+
+        lspconfig["yamlls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
