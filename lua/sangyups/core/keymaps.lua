@@ -20,9 +20,8 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
 
--- increment/decrement numbers
-keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
-keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+keymap.set("n", "<S-Tab>", "<<", { desc = "Indent left" })
+keymap.set("n", "<Tab>", ">>", { desc = "Indent right" })
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
