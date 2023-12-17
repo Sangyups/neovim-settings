@@ -28,6 +28,13 @@ rm -rf ~/.local/state/nvim
 rm -rf ~/.cache/nvim
 ```
 
+### Install Required Packages
+
+```sh
+# install fzf, lazygit, ripgrep, neovim
+brew install fzf lazygit ripgrep neovim
+```
+
 ## How to Install
 
 First, clone this repository.
