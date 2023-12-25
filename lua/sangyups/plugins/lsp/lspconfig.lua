@@ -73,17 +73,14 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- configure typescript server with plugin
-        lspconfig["tsserver"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls" }
 
-        -- configure python server
-        lspconfig["pyright"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        for _, lsp_server in ipairs(lsp_servers) do
+            lspconfig[lsp_server].setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+        end
 
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({
@@ -106,24 +103,6 @@ return {
             },
         })
 
-        lspconfig["gopls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["jsonls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig["dockerls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-cbt setfiletype dockerfile")
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-prod setfiletype dockerfile")
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-dev setfiletype dockerfile")
-
         lspconfig["yamlls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
@@ -133,5 +112,9 @@ return {
                 },
             },
         })
+
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-cbt setfiletype dockerfile")
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-prod setfiletype dockerfile")
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-dev setfiletype dockerfile")
     end,
 }
