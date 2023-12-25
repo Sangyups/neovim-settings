@@ -56,7 +56,7 @@ return {
             keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
             opts.desc = "Show documentation for what is under cursor(Insert Mode)"
-            keymap.set("i", "<C-k>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+            keymap.set({ "i", "n" }, "π", vim.lsp.buf.signature_help, opts) -- show documentation for what is under cursor
 
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
