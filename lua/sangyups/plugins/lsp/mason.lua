@@ -33,7 +33,6 @@ return {
                 "bashls",
                 "yamlls",
                 "gopls",
-                "pylsp",
                 "jsonls",
                 "rust_analyzer",
                 "dockerls",

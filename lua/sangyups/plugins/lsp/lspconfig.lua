@@ -73,7 +73,7 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls" }
+        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls" }
 
         for _, lsp_server in ipairs(lsp_servers) do
             lspconfig[lsp_server].setup({
