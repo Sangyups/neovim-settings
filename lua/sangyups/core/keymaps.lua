@@ -18,6 +18,9 @@ keymap.set("i", "<C-l>", "<Right>")
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
+keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 -- delete single character without copying into register
 -- keymap.set("n", "x", '"_x')
 

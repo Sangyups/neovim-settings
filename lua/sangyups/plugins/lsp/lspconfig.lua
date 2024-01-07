@@ -58,6 +58,9 @@ return {
             opts.desc = "Show documentation for what is under cursor(Insert Mode)"
             keymap.set({ "i", "n" }, "π", vim.lsp.buf.signature_help, opts) -- show documentation for what is under cursor
 
+            opts.desc = "Show documentation for what is under cursor(Insert Mode)"
+            keymap.set("i", "<C-k>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
         end
@@ -73,7 +76,7 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls" }
+        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls", "bashls" }
 
         for _, lsp_server in ipairs(lsp_servers) do
             lspconfig[lsp_server].setup({

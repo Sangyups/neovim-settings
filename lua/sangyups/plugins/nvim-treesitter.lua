@@ -4,7 +4,6 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         build = ":TSUpdate",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
             "windwp/nvim-ts-autotag",
         },
         config = function()
@@ -36,6 +35,7 @@ return {
                     "bash",
                     "lua",
                     "vim",
+                    "vimdoc",
                     "dockerfile",
                     "gitignore",
                     "go",
