@@ -116,8 +116,6 @@ return {
             },
         })
 
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-cbt setfiletype dockerfile")
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-prod setfiletype dockerfile")
-        vim.cmd("autocmd BufRead,BufNewFile Dockerfile-dev setfiletype dockerfile")
+        vim.cmd("autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile")
     end,
 }
