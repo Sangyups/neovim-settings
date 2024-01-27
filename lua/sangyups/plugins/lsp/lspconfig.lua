@@ -4,6 +4,7 @@ return {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
+        { "j-hui/fidget.nvim", config = true },
     },
     config = function()
         -- import lspconfig plugin
@@ -15,8 +16,14 @@ return {
         local keymap = vim.keymap -- for conciseness
 
         local opts = { noremap = true, silent = true }
+
+        vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
+        vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
+
+        local border = "rounded"
         local on_attach = function(client, bufnr)
             opts.buffer = bufnr
+            vim.diagnostic.config({ float = { border = border } })
 
             -- set keybinds
             opts.desc = "Show LSP references"
@@ -46,17 +53,17 @@ return {
             opts.desc = "Show line diagnostics"
             keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
-            opts.desc = "Go to previous diagnostic"
+            opts.desc = "Go to previous vim.diagnostic"
             keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
-            opts.desc = "Go to next diagnostic"
+            opts.desc = "Go to next vim.diagnostic"
             keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
             opts.desc = "Show documentation for what is under cursor"
             keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
             opts.desc = "Show documentation for what is under cursor(Insert Mode)"
-            keymap.set({ "i", "n" }, "π", vim.lsp.buf.signature_help, opts) -- show documentation for what is under cursor
+            keymap.set({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, opts) -- show documentation for what is under cursor
 
             opts.desc = "Show documentation for what is under cursor(Insert Mode)"
             keymap.set("i", "<C-k>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
@@ -76,12 +83,19 @@ return {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
+        -- LSP settings (for overriding per client)
+        local handlers = {
+            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+        }
+
         local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls", "bashls" }
 
         for _, lsp_server in ipairs(lsp_servers) do
             lspconfig[lsp_server].setup({
                 capabilities = capabilities,
                 on_attach = on_attach,
+                handlers = handlers,
             })
         end
 
@@ -89,6 +103,7 @@ return {
         lspconfig["lua_ls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            handlers = handlers,
             settings = { -- custom settings for lua
                 Lua = {
                     -- make the language server recognize "vim" global
@@ -109,13 +124,13 @@ return {
         lspconfig["yamlls"].setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            handlers = handlers,
             settings = {
                 yaml = {
                     schemas = { kubernetes = "deploy-*.yaml" },
                 },
             },
         })
-
         vim.cmd("autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile")
     end,
 }

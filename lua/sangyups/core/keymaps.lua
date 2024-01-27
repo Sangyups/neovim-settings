@@ -22,10 +22,13 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- delete single character without copying into register
--- keymap.set("n", "x", '"_x')
+keymap.set("n", "x", '"_x')
 
 keymap.set("n", "<S-Tab>", "<<", { desc = "Indent left" })
 keymap.set("n", "<Tab>", ">>", { desc = "Indent right" })
+
+-- substitute
+vim.keymap.set("n", "<leader>saw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
@@ -43,3 +46,7 @@ keymap.set("n", "<C-a>", "ggVG", { desc = "Select all text in current buffer" })
 -- buffer navigation
 keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
 keymap.set("n", "<leader>bp", "<cmd>bprev<CR>")
+-- delete all buffers but current
+vim.cmd([[
+  command! -nargs=0 Bda lua vim.api.nvim_command(':%bd | e#')
+]])

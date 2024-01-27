@@ -38,5 +38,5 @@ opt.swapfile = false
 
 opt.colorcolumn = "100"
 
-opt.listchars = { tab = ">-", space = "·" }
+opt.listchars = { tab = ">-" }
 opt.list = true
