@@ -6,9 +6,9 @@ return {
         dependencies = {
             "rktjmp/lush.nvim",
         },
-        config = function()
-            vim.cmd("colorscheme habamax")
-        end,
+        -- config = function()
+        --     vim.cmd("colorscheme habamax")
+        -- end,
     },
     {
         "projekt0n/github-nvim-theme",
@@ -18,6 +18,14 @@ return {
         --     require("github-theme").setup({})
         --     vim.cmd("colorscheme github_dark")
         -- end,
+    },
+    {
+        "rebelot/kanagawa.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd("colorscheme kanagawa-dragon")
+        end,
     },
     -- {
     --   "bluz71/vim-nightfly-guicolors",
