@@ -37,6 +37,3 @@ opt.splitbelow = true -- split horizontal window to the bottom
 opt.swapfile = false
 
 opt.colorcolumn = "100"
-
-opt.listchars = { tab = ">-" }
-opt.list = true

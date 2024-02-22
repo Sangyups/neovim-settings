@@ -6,6 +6,7 @@ local keymap = vim.keymap -- for conciseness
 ---------------------
 -- General Keymaps -------------------
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-c>", "<Esc>")
+keymap.set({ "i", "n", "x", "c", "v" }, "<C-ㅊ>", "<Esc>")
 
 -- yank & paste
 -- paste without yanking selected
@@ -23,9 +24,6 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
-
-keymap.set("n", "<S-Tab>", "<<", { desc = "Indent left" })
-keymap.set("n", "<Tab>", ">>", { desc = "Indent right" })
 
 -- substitute
 vim.keymap.set("n", "<leader>saw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
