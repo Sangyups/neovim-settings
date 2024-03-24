@@ -7,6 +7,8 @@ local keymap = vim.keymap -- for conciseness
 -- General Keymaps -------------------
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-c>", "<Esc>")
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-ㅊ>", "<Esc>")
+vim.cmd([[command! W w]])
+vim.cmd([[command! Wq wq]])
 
 -- yank & paste
 -- paste without yanking selected
