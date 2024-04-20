@@ -9,6 +9,7 @@ keymap.set({ "i", "n", "x", "c", "v" }, "<C-c>", "<Esc>")
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-ㅊ>", "<Esc>")
 vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
+vim.cmd([[command! Wqa wqa]])
 
 -- yank & paste
 -- paste without yanking selected
