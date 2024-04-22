@@ -25,6 +25,9 @@ keymap.set("n", "N", "Nzzzv")
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+keymap.set("v", "<", "<gv")
+keymap.set("v", ">", ">gv")
+
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
 
