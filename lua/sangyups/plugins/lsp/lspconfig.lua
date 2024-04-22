@@ -89,7 +89,8 @@ return {
             ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
         }
 
-        local lsp_servers = { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls", "bashls" }
+        local lsp_servers =
+            { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls", "bashls", "tailwindcss" }
 
         for _, lsp_server in ipairs(lsp_servers) do
             lspconfig[lsp_server].setup({
