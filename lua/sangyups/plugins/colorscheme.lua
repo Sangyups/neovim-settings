@@ -11,13 +11,25 @@ return {
         -- end,
     },
     {
-        "projekt0n/github-nvim-theme",
+        "sainnhe/gruvbox-material",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-            require("github-theme").setup({})
-            vim.cmd("colorscheme github_dark")
+            vim.g.gruvbox_material_background = "hard"
+            vim.g.gruvbox_material_better_performance = 1
+            vim.g.gruvbox_material_diagnostic_text_highlight = 1
+            vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+            vim.cmd("colorscheme gruvbox-material")
         end,
+    },
+    {
+        "projekt0n/github-nvim-theme",
+        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        -- config = function()
+        --     require("github-theme").setup({})
+        --     vim.cmd("colorscheme github_dark")
+        -- end,
     },
     -- {
     --     "rebelot/kanagawa.nvim",
