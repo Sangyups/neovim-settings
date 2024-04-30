@@ -5,10 +5,12 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
         { "j-hui/fidget.nvim", config = true },
+        "williamboman/mason-lspconfig.nvim",
     },
     config = function()
         -- import lspconfig plugin
         local lspconfig = require("lspconfig")
+        local mason_lspconfig = require("mason-lspconfig")
 
         -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -89,63 +91,66 @@ return {
             ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
         }
 
-        local lsp_servers =
-            { "tsserver", "pyright", "gopls", "jsonls", "dockerls", "rust_analyzer", "jdtls", "bashls", "tailwindcss" }
+        mason_lspconfig.setup_handlers({
+            function(lsp_server)
+                lspconfig[lsp_server].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    handlers = handlers,
+                })
+            end,
 
-        for _, lsp_server in ipairs(lsp_servers) do
-            lspconfig[lsp_server].setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-                handlers = handlers,
-            })
-        end
-
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            handlers = handlers,
-            settings = { -- custom settings for lua
-                Lua = {
-                    -- make the language server recognize "vim" global
-                    diagnostics = {
-                        globals = { "vim" },
-                    },
-                    workspace = {
-                        -- make language server aware of runtime files
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true,
+            ["lua_ls"] = function()
+                lspconfig["lua_ls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    handlers = handlers,
+                    settings = { -- custom settings for lua
+                        Lua = {
+                            -- make the language server recognize "vim" global
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                            workspace = {
+                                -- make language server aware of runtime files
+                                library = {
+                                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                                    [vim.fn.stdpath("config") .. "/lua"] = true,
+                                },
+                            },
                         },
                     },
-                },
-            },
+                })
+            end,
+
+            ["yamlls"] = function()
+                lspconfig["yamlls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    handlers = handlers,
+                    settings = {
+                        yaml = {
+                            schemas = {
+                                kubernetes = "*.yaml",
+                                ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+                                ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+                                ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+                                ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+                                ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+                                ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+                                ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+                                ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+                                ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+                                ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
+                                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
+                                ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
+                            },
+                        },
+                    },
+                })
+            end,
         })
 
-        lspconfig["yamlls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            handlers = handlers,
-            settings = {
-                yaml = {
-                    schemas = {
-                        kubernetes = "*.yaml",
-                        ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-                        ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-                        ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-                        ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-                        ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-                        ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-                        ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-                        ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-                        ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
-                        ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
-                        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
-                        ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
-                    },
-                },
-            },
-        })
         vim.cmd("autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile")
     end,
 }
