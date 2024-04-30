@@ -39,6 +39,7 @@ return {
                     "dockerfile",
                     "gitignore",
                     "go",
+                    "rust",
                 },
                 incremental_selection = {
                     enable = true,
