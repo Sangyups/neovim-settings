@@ -2,6 +2,7 @@
 vim.g.mapleader = " "
 
 local keymap = vim.keymap -- for conciseness
+local opts = { silent = true }
 
 ---------------------
 -- General Keymaps -------------------
@@ -23,8 +24,8 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
