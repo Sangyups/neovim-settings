@@ -18,6 +18,9 @@ luac.out
 *.gch
 *.pch
 
+# Logs
+*.log
+
 # Libraries
 *.lib
 *.a
