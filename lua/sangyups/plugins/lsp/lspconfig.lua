@@ -93,11 +93,13 @@ return {
 
         mason_lspconfig.setup_handlers({
             function(lsp_server)
-                lspconfig[lsp_server].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    handlers = handlers,
-                })
+                if lsp_server ~= "jdtls" then
+                    lspconfig[lsp_server].setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        handlers = handlers,
+                    })
+                end
             end,
 
             ["lua_ls"] = function()
