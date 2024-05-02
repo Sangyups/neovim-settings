@@ -14,13 +14,13 @@ return {
         "sainnhe/gruvbox-material",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            vim.g.gruvbox_material_background = "hard"
-            vim.g.gruvbox_material_better_performance = 1
-            vim.g.gruvbox_material_diagnostic_text_highlight = 1
-            vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-            vim.cmd("colorscheme gruvbox-material")
-        end,
+        -- config = function()
+        --     vim.g.gruvbox_material_background = "hard"
+        --     vim.g.gruvbox_material_better_performance = 1
+        --     vim.g.gruvbox_material_diagnostic_text_highlight = 1
+        --     vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+        --     vim.cmd("colorscheme gruvbox-material")
+        -- end,
     },
     {
         "projekt0n/github-nvim-theme",
@@ -31,14 +31,14 @@ return {
         --     vim.cmd("colorscheme github_dark")
         -- end,
     },
-    -- {
-    --     "rebelot/kanagawa.nvim",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         vim.cmd("colorscheme kanagawa-dragon")
-    --     end,
-    -- },
+    {
+        "rebelot/kanagawa.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.cmd("colorscheme kanagawa-wave")
+        end,
+    },
     -- {
     --   "bluz71/vim-nightfly-guicolors",
     --   priority = 1000, -- make sure to load this before all the other start plugins
