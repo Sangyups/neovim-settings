@@ -5,6 +5,7 @@ return {
         build = ":TSUpdate",
         dependencies = {
             "windwp/nvim-ts-autotag",
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         config = function()
             -- import nvim-treesitter plugin
@@ -21,6 +22,8 @@ return {
                 autotag = {
                     enable = true,
                 },
+
+                auto_install = true,
                 -- ensure these language parsers are installed
                 ensure_installed = {
                     "json",
@@ -28,8 +31,6 @@ return {
                     "typescript",
                     "tsx",
                     "yaml",
-                    "html",
-                    "css",
                     "markdown",
                     "markdown_inline",
                     "bash",
@@ -39,7 +40,7 @@ return {
                     "dockerfile",
                     "gitignore",
                     "go",
-                    "rust",
+                    "java",
                 },
                 incremental_selection = {
                     enable = true,
