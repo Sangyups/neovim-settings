@@ -3,6 +3,7 @@ return {
         "mfussenegger/nvim-lint",
         lazy = true,
         event = { "BufReadPre", "BufNewFile", "InsertLeave" }, -- to disable, comment this out
+        dependencies = { "mfussenegger/nvim-dap" },
         config = function()
             local lint = require("lint")
 
