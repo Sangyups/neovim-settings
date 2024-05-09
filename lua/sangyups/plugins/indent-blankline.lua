@@ -3,10 +3,11 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
         indent = {
+            highlight = { "Whitespace" },
             char = "│",
-            tab_char = "│",
+            tab_char = "⇥",
         },
-        scope = { enabled = true },
+        scope = { enabled = true, highlight = { "Whitespace" } },
         exclude = {
             filetypes = {
                 "help",
