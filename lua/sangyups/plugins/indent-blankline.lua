@@ -5,7 +5,7 @@ return {
         indent = {
             highlight = { "Whitespace" },
             char = "│",
-            tab_char = "⇥",
+            tab_char = "│",
         },
         scope = { enabled = true, highlight = { "Whitespace" } },
         exclude = {

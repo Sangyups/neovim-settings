@@ -25,8 +25,8 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 
-keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
-keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
+keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
+keymap.set("v", "˚", ":m '<-2<CR>gv=gv", opts)
 
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
@@ -51,8 +51,11 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 keymap.set("n", "<C-a>", "ggVG", { desc = "Select all text in current buffer" }) -- select all
 
 -- buffer navigation
-keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
 keymap.set("n", "<leader>bp", "<cmd>bprev<CR>")
+keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
+keymap.set("n", "H", "<cmd>bprev<CR>")
+keymap.set("n", "L", "<cmd>bnext<CR>")
+
 -- delete all buffers but current
 vim.cmd([[
   command! -nargs=0 Bda lua vim.api.nvim_command(':%bd | e#')
