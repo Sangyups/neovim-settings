@@ -53,6 +53,7 @@ return {
                 "eslint_d", -- js linter
                 "gofumpt", -- golang formatter
                 "golangci-lint", -- golang linter
+                "sonarlint-language-server",
             },
         })
     end,
