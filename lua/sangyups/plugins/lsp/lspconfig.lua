@@ -95,10 +95,6 @@ return {
 
         mason_lspconfig.setup_handlers({
             function(lsp_server)
-                if lsp_server == "jdtls" then
-                    return
-                end
-
                 lspconfig[lsp_server].setup({
                     capabilities = capabilities,
                     handlers = handlers,

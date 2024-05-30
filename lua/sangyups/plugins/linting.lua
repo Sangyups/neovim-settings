@@ -34,7 +34,6 @@ return {
         url = "https://gitlab.com/schrieveslaach/sonarlint.nvim",
         event = { "BufReadPre", "BufNewFile", "InsertLeave" },
         dependencies = {
-            "mfussenegger/nvim-jdtls",
             "williamboman/mason.nvim",
         },
         config = function()
@@ -48,13 +47,11 @@ return {
                         "sonarlint-language-server",
                         "-stdio",
                         "-analyzers",
-                        vim.fn.expand(analyzers_path .. "/sonarjava.jar"),
                         vim.fn.expand(analyzers_path .. "/sonargo.jar"),
                         vim.fn.expand(analyzers_path .. "/sonarpython.jar"),
                     },
                 },
                 filetypes = {
-                    "java",
                     "go",
                     "python",
                 },
