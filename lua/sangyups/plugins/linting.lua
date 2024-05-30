@@ -50,11 +50,13 @@ return {
                         "-analyzers",
                         vim.fn.expand(analyzers_path .. "/sonarjava.jar"),
                         vim.fn.expand(analyzers_path .. "/sonargo.jar"),
+                        vim.fn.expand(analyzers_path .. "/sonarpython.jar"),
                     },
                 },
                 filetypes = {
                     "java",
                     "go",
+                    "python",
                 },
             })
         end,
