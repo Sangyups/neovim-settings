@@ -2,7 +2,7 @@ return {
     {
         "mfussenegger/nvim-lint",
         lazy = true,
-        event = { "BufReadPre", "BufNewFile", "InsertLeave" }, -- to disable, comment this out
+        event = { "BufReadPre", "BufNewFile", "InsertLeave" },
         dependencies = { "mfussenegger/nvim-dap" },
         config = function()
             local lint = require("lint")
@@ -12,7 +12,6 @@ return {
                 typescript = { "eslint_d" },
                 javascriptreact = { "eslint_d" },
                 typescriptreact = { "eslint_d" },
-                python = { "pylint" },
                 go = { "golangcilint" },
             }
 
