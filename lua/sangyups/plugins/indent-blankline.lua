@@ -2,12 +2,12 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-        indent = {
+        scope = {
+            enabled = true,
             highlight = { "Whitespace" },
-            char = "│",
-            tab_char = "│",
+            show_start = false,
+            show_end = false,
         },
-        scope = { enabled = true, highlight = { "Whitespace" } },
         exclude = {
             filetypes = {
                 "help",
