@@ -4,7 +4,6 @@ return {
     opts = {
         scope = {
             enabled = true,
-            highlight = { "Whitespace" },
             show_start = false,
             show_end = false,
         },
