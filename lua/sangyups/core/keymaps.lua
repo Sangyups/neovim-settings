@@ -18,7 +18,7 @@ vim.cmd([[command! Wqa wqa]])
 -- paste without yanking selected
 keymap.set("x", "<S-p>", [["_dP]], { desc = "Paste without yanking selected" })
 keymap.set({ "n", "x" }, "<S-y>", [["+y]], { desc = "Yank to system clipboard" })
-keymap.set("n", "<S-y><S-y>", ":%y+", { desc = "Yank all in current buffer to system clipboard" })
+keymap.set("n", "<S-y><S-y>", ":%y+<CR>", { desc = "Yank all in current buffer to system clipboard" })
 
 -- navigation enhancement
 keymap.set("n", "<C-d>", "<C-d>zz")

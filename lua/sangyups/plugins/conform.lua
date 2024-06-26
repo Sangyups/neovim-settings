@@ -19,7 +19,7 @@ return {
                 markdown = { "prettier" },
                 graphql = { "prettier" },
                 lua = { "stylua" },
-                python = { "isort", "black" },
+                python = { "ruff_format", "isort" },
             },
             format_after_save = {
                 lsp_fallback = true,
