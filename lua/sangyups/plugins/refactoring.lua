@@ -10,7 +10,7 @@ return {
 
         local opts = { silent = true }
 
-        vim.keymap.set("x", "<leader>rf", ":Refactor extract ")
+        vim.keymap.set("x", "<leader>rf", ":Refactor extract<CR>")
         vim.keymap.set("x", "<leader>rv", ":Refactor extract_var<CR>", opts)
 
         vim.keymap.set({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
