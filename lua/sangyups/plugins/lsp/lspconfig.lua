@@ -26,7 +26,10 @@ return {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
                 local opts = { buffer = ev.buf, noremap = true, silent = true }
-                vim.diagnostic.config({ float = { border = border } })
+                vim.diagnostic.config({
+                    float = { border = border },
+                    underline = true,
+                })
 
                 -- set keybinds
                 opts.desc = "Show LSP references"
