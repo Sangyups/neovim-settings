@@ -25,6 +25,10 @@ keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
+keymap.set("n", "H", "^", { remap = false })
+keymap.set("n", "L", "$", { remap = false })
+
+keymap.set("n", "vil", "^v$")
 
 keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
 keymap.set("v", "˚", ":m '<-2<CR>gv=gv", opts)
@@ -36,7 +40,7 @@ keymap.set("v", ">", ">gv")
 keymap.set("n", "x", '"_x')
 
 -- substitute
-vim.keymap.set("n", "<leader>saw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>siw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
@@ -54,8 +58,8 @@ keymap.set("n", "<C-a>", "ggVG", { desc = "Select all text in current buffer" })
 -- buffer navigation
 keymap.set("n", "<leader>bp", "<cmd>bprev<CR>")
 keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
-keymap.set("n", "H", "<cmd>bprev<CR>")
-keymap.set("n", "L", "<cmd>bnext<CR>")
+keymap.set("n", "<C-S-h>", "<cmd>bprev<CR>")
+keymap.set("n", "<C-S-l>", "<cmd>bnext<CR>")
 
 -- delete all buffers but current
 vim.cmd([[

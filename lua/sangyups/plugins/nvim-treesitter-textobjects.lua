@@ -19,7 +19,6 @@ return {
                         ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
 
                         ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
-                        ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
 
                         ["af"] = {
                             query = "@function.outer",
