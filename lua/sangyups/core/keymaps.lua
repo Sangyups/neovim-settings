@@ -30,6 +30,7 @@ keymap.set({ "n", "x" }, "L", "$", { remap = false })
 
 keymap.set("n", "vil", "^v$")
 keymap.set("n", "yil", "^y$")
+keymap.set("n", "dil", "^d$")
 keymap.set("n", "<S-y>il", [[^"+y$]])
 
 keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
