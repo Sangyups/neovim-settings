@@ -28,10 +28,8 @@ keymap.set("n", "N", "Nzzzv")
 keymap.set({ "n", "x", "o" }, "H", "^", { remap = false })
 keymap.set({ "n", "x", "o" }, "L", "$", { remap = false })
 
-keymap.set("n", "vil", "^v$")
-keymap.set("n", "yil", "^y$")
-keymap.set("n", "dil", "^d$")
-keymap.set("n", "<S-y>il", [[^"+y$]])
+keymap.set({ "x" }, "il", "g_o^o", { noremap = true, silent = true })
+keymap.set({ "o" }, "il", ":normal vil<CR>", { noremap = true, silent = true })
 
 keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
 keymap.set("v", "˚", ":m '<-2<CR>gv=gv", opts)
