@@ -11,6 +11,7 @@ keymap.set({ "i", "n", "x", "c", "v" }, "<C-ㅊ>", "<Esc>")
 keymap.set("n", "L", "<Nop>")
 vim.cmd([[command! W w]])
 vim.cmd([[command! Q q]])
+vim.cmd([[command! Qa qa]])
 vim.cmd([[command! Wq wq]])
 vim.cmd([[command! Wqa wqa]])
 
@@ -41,7 +42,18 @@ keymap.set("v", ">", ">gv")
 keymap.set("n", "x", '"_x')
 
 -- substitute
-vim.keymap.set("n", "<leader>siw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set(
+    "n",
+    "<leader>siwa",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Substitute word in a buffer" }
+)
+vim.keymap.set(
+    "n",
+    "<leader>siwl",
+    [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { desc = "Substitute word in a line" }
+)
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
