@@ -27,8 +27,12 @@ return {
             callback = function(ev)
                 local opts = { buffer = ev.buf, noremap = true, silent = true }
                 vim.diagnostic.config({
-                    float = { border = border },
+                    float = {
+                        border = border,
+                        severity_sort = true,
+                    },
                     underline = true,
+                    severity_sort = true,
                 })
 
                 -- set keybinds
