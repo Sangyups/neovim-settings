@@ -8,7 +8,6 @@ local opts = { silent = true }
 -- General Keymaps -------------------
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-c>", "<Esc>")
 keymap.set({ "i", "n", "x", "c", "v" }, "<C-ㅊ>", "<Esc>")
-keymap.set("n", "L", "<Nop>")
 vim.cmd([[command! W w]])
 vim.cmd([[command! Q q]])
 vim.cmd([[command! Qa qa]])
@@ -24,16 +23,17 @@ keymap.set("n", "<S-y><S-y>", ":%y+<CR>", { desc = "Yank all in current buffer t
 -- navigation enhancement
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
-keymap.set("n", "n", "nzzzv")
-keymap.set("n", "N", "Nzzzv")
-keymap.set({ "n", "x", "o" }, "H", "^", { remap = false })
-keymap.set({ "n", "x", "o" }, "L", "$", { remap = false })
+keymap.set("n", "n", "nzz")
+keymap.set("n", "N", "Nzz")
 
 keymap.set({ "x" }, "il", "g_o^o", { noremap = true, silent = true })
 keymap.set({ "o" }, "il", ":normal vil<CR>", { noremap = true, silent = true })
+keymap.set("o", "_", "^", { noremap = true })
 
 keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
 keymap.set("v", "˚", ":m '<-2<CR>gv=gv", opts)
+keymap.set("n", "∆", ":m +1<CR>==", opts)
+keymap.set("n", "˚", ":m -2<CR>==", opts)
 
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
