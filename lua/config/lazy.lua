@@ -12,11 +12,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { import = "sangyups.plugins" },
-    { import = "sangyups.plugins.lsp" },
+    { import = "plugins" },
+    { import = "plugins.lsp" },
+    { import = "plugins.treesitter" },
 }, {
     install = {
-        colorscheme = { "nightfly" },
+        colorscheme = { "habamax" },
     },
     checker = {
         enabled = true,

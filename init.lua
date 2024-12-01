@@ -1,2 +1,2 @@
-require("sangyups.core")
-require("sangyups.lazy")
+require("core")
+require("config.lazy")

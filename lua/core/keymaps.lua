@@ -42,13 +42,13 @@ keymap.set("v", ">", ">gv")
 keymap.set("n", "x", '"_x')
 
 -- substitute
-vim.keymap.set(
+keymap.set(
     "n",
     "<leader>siwa",
     [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Substitute word in a buffer" }
 )
-vim.keymap.set(
+keymap.set(
     "n",
     "<leader>siwl",
     [[:s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
