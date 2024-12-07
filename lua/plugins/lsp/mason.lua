@@ -45,7 +45,6 @@ return {
                 "eslint_d",
                 "gofumpt",
                 "golangci-lint",
-                "sonarlint-language-server",
             },
         })
     end,
