@@ -71,8 +71,8 @@ keymap.set("n", "<C-a>", "ggVG", { desc = "Select all text in current buffer" })
 -- buffer navigation
 keymap.set("n", "<leader>bp", "<cmd>bprev<CR>")
 keymap.set("n", "<leader>bn", "<cmd>bnext<CR>")
-keymap.set("n", "<C-S-h>", "<cmd>bprev<CR>")
-keymap.set("n", "<C-S-l>", "<cmd>bnext<CR>")
+keymap.set("n", "˙", "<cmd>bprev<CR>")
+keymap.set("n", "¬", "<cmd>bnext<CR>")
 
 -- delete all buffers but current
 vim.cmd([[
