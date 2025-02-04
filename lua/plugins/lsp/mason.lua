@@ -22,29 +22,14 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
-                "tsserver",
                 "lua_ls",
-                "pyright",
-                "ruff",
-                "bashls",
-                "yamlls",
-                "gopls",
-                "jsonls",
-                "rust_analyzer",
-                "dockerls",
-                "bashls",
             },
             automatic_installation = true,
         })
 
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier",
                 "stylua",
-                "isort",
-                "eslint_d",
-                "gofumpt",
-                "golangci-lint",
             },
         })
     end,
