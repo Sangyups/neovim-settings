@@ -35,6 +35,8 @@ return {
                     severity_sort = true,
                 })
 
+                vim.lsp.inlay_hint.enable()
+
                 -- set keybinds
                 opts.desc = "Show LSP references"
                 keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
@@ -118,12 +120,105 @@ return {
                             diagnostics = {
                                 globals = { "vim" },
                             },
+                            hint = {
+                                enable = true, -- necessary
+                            },
                             workspace = {
                                 -- make language server aware of runtime files
                                 library = {
                                     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                                     [vim.fn.stdpath("config") .. "/lua"] = true,
                                 },
+                            },
+                        },
+                    },
+                })
+            end,
+
+            ["rust_analyzer"] = function()
+                lspconfig["rust_analyzer"].setup({
+                    settings = {
+                        ["rust-analyzer"] = {
+                            inlayHints = {
+                                bindingModeHints = {
+                                    enable = false,
+                                },
+                                chainingHints = {
+                                    enable = true,
+                                },
+                                closingBraceHints = {
+                                    enable = true,
+                                    minLines = 25,
+                                },
+                                closureReturnTypeHints = {
+                                    enable = "never",
+                                },
+                                lifetimeElisionHints = {
+                                    enable = "never",
+                                    useParameterNames = false,
+                                },
+                                maxLength = 25,
+                                parameterHints = {
+                                    enable = true,
+                                },
+                                reborrowHints = {
+                                    enable = "never",
+                                },
+                                renderColons = true,
+                                typeHints = {
+                                    enable = true,
+                                    hideClosureInitialization = false,
+                                    hideNamedConstructor = false,
+                                },
+                            },
+                        },
+                    },
+                })
+            end,
+
+            ["tsserver"] = function()
+                lspconfig["tsserver"].setup({
+                    settings = {
+                        typescript = {
+                            inlayHints = {
+                                includeInlayParameterNameHints = "literals",
+                                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                                includeInlayFunctionParameterTypeHints = true,
+                                includeInlayVariableTypeHints = true,
+                                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                                includeInlayPropertyDeclarationTypeHints = true,
+                                includeInlayFunctionLikeReturnTypeHints = true,
+                                includeInlayEnumMemberValueHints = true,
+                            },
+                        },
+                        javascript = {
+                            inlayHints = {
+                                includeInlayParameterNameHints = "literals",
+                                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                                includeInlayFunctionParameterTypeHints = true,
+                                includeInlayVariableTypeHints = true,
+                                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                                includeInlayPropertyDeclarationTypeHints = true,
+                                includeInlayFunctionLikeReturnTypeHints = true,
+                                includeInlayEnumMemberValueHints = true,
+                            },
+                        },
+                    },
+                })
+            end,
+
+            ["gopls"] = function()
+                lspconfig["gopls"].setup({
+                    settings = {
+                        gopls = {
+                            hints = {
+                                rangeVariableTypes = true,
+                                parameterNames = true,
+                                constantValues = true,
+                                assignVariableTypes = true,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes = true,
+                                functionTypeParameters = true,
                             },
                         },
                     },
