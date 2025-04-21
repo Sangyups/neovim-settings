@@ -39,8 +39,16 @@ brew install fzf lazygit ripgrep neovim
 
 First, clone this repository.
 
+#### via HTTPS
+
 ```sh
 git clone https://github.com/Sangyups/neovim-settings.git ~/.config/nvim
+```
+
+#### via SSH
+
+```sh
+git clone git@github.com:Sangyups/neovim-settings.git ~/.config/nvim
 ```
 
 ### Install Neovim
