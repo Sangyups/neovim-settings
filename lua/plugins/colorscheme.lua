@@ -50,14 +50,10 @@ return {
         priority = 1000,
         config = function()
             require("rose-pine").setup({
+                disable_background = true,
                 disable_float_background = true,
                 styles = {
                     italic = false,
-                },
-                palette = {
-                    moon = {
-                        base = "#1a1d23",
-                    },
                 },
             })
             vim.cmd("colorscheme rose-pine-moon")
