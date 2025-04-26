@@ -139,6 +139,9 @@ return {
                 lspconfig["rust_analyzer"].setup({
                     settings = {
                         ["rust-analyzer"] = {
+                            check = {
+                                command = "clippy",
+                            },
                             inlayHints = {
                                 bindingModeHints = {
                                     enable = false,
