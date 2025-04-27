@@ -26,6 +26,7 @@ return {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
                 local opts = { buffer = ev.buf, noremap = true, silent = true }
+                local severity = vim.diagnostic.severity
                 vim.diagnostic.config({
                     float = {
                         border = border,
@@ -33,6 +34,15 @@ return {
                     },
                     underline = true,
                     severity_sort = true,
+                    virtual_text = true,
+                    signs = {
+                        text = {
+                            [severity.ERROR] = " ",
+                            [severity.WARN] = " ",
+                            [severity.HINT] = "󰠠 ",
+                            [severity.INFO] = " ",
+                        },
+                    },
                 })
 
                 vim.lsp.inlay_hint.enable()
@@ -66,52 +76,51 @@ return {
                 keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
                 opts.desc = "Go to previous vim.diagnostic"
-                keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+                keymap.set("n", "[d", function()
+                    vim.diagnostic.jump({ count = -1, float = true })
+                end, opts) -- jump to previous diagnostic in buffer
 
                 opts.desc = "Go to next vim.diagnostic"
-                keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+                keymap.set("n", "]d", function()
+                    vim.diagnostic.jump({ count = 1, float = true })
+                end, opts) -- jump to next diagnostic in buffer
 
                 opts.desc = "Show documentation for what is under cursor"
-                keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+                keymap.set("n", "K", function()
+                    vim.lsp.buf.hover({ border = border })
+                end, opts) -- show documentation for what is under cursor
 
                 opts.desc = "Show documentation for what is under cursor(Insert Mode)"
-                keymap.set({ "i", "n" }, "<C-q>", vim.lsp.buf.signature_help, opts) -- show documentation for what is under cursor
-
-                opts.desc = "Show documentation for what is under cursor(Insert Mode)"
-                keymap.set("i", "<C-k>", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
-                opts.desc = "Restart LSP"
-                keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+                keymap.set({ "i", "n" }, "<C-q>", function()
+                    vim.lsp.buf.signature_help({ border = border })
+                end, opts) -- show documentation for what is under cursor
             end,
         })
 
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
 
-        -- Change the Diagnostic symbols in the sign column (gutter)
-        -- (not in youtube nvim video)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
-
-        -- LSP settings (for overriding per client)
         local handlers = {
-            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+            ["textDocument/hover"] = vim.lsp.buf.hover,
+            ["textDocument/signatureHelp"] = vim.lsp.buf.signature_help,
         }
+
+        local function setup_and_start(server_name, opts)
+            vim.lsp.config(server_name, opts)
+            vim.lsp.enable(server_name)
+        end
 
         mason_lspconfig.setup_handlers({
             function(lsp_server)
-                lspconfig[lsp_server].setup({
+                vim.lsp.config(lsp_server, {
                     capabilities = capabilities,
                     handlers = handlers,
                 })
+                vim.lsp.enable(lsp_server)
             end,
 
             ["lua_ls"] = function()
-                lspconfig["lua_ls"].setup({
+                setup_and_start("lua_ls", {
                     capabilities = capabilities,
                     handlers = handlers,
                     settings = { -- custom settings for lua
@@ -136,7 +145,7 @@ return {
             end,
 
             ["rust_analyzer"] = function()
-                lspconfig["rust_analyzer"].setup({
+                setup_and_start("rust_analyzer", {
                     settings = {
                         ["rust-analyzer"] = {
                             check = {
@@ -180,7 +189,7 @@ return {
             end,
 
             ["ts_ls"] = function()
-                lspconfig["ts_ls"].setup({
+                setup_and_start("ts_ls", {
                     settings = {
                         typescript = {
                             inlayHints = {
@@ -211,7 +220,7 @@ return {
             end,
 
             ["gopls"] = function()
-                lspconfig["gopls"].setup({
+                setup_and_start("gopls", {
                     settings = {
                         gopls = {
                             hints = {
@@ -229,7 +238,7 @@ return {
             end,
 
             ["yamlls"] = function()
-                lspconfig["yamlls"].setup({
+                setup_and_start("yamlls", {
                     capabilities = capabilities,
                     handlers = handlers,
                     settings = {
