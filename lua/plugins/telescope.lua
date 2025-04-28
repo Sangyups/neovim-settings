@@ -5,12 +5,10 @@ return {
         "nvim-lua/plenary.nvim",
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
         "nvim-tree/nvim-web-devicons",
-        "folek/trouble.nvim",
     },
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
-        local trouble = require("trouble.sources.telescope")
 
         telescope.setup({
             defaults = {
@@ -20,10 +18,6 @@ return {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
                         ["<C-j>"] = actions.move_selection_next, -- move to next result
                         ["<Esc>"] = actions.close,
-                        ["<C-t>"] = trouble.open,
-                    },
-                    n = {
-                        ["<C-t>"] = trouble.open,
                     },
                 },
             },
