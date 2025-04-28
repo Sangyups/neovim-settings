@@ -8,11 +8,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
     },
     config = function()
-        -- import lspconfig plugin
-        local lspconfig = require("lspconfig")
         local mason_lspconfig = require("mason-lspconfig")
-
-        -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local keymap = vim.keymap -- for conciseness
