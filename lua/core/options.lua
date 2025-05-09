@@ -41,3 +41,5 @@ opt.swapfile = false
 
 opt.colorcolumn = "100"
 opt.laststatus = 3 -- for avante plugin
+
+opt.shellcmdflag = "-ic"
