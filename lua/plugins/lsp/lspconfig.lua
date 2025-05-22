@@ -106,6 +106,11 @@ return {
             vim.lsp.enable(server_name)
         end
 
+        setup_and_start("gleam", {
+            capabilities = capabilities,
+            handlers = handlers,
+        })
+
         mason_lspconfig.setup_handlers({
             function(lsp_server)
                 vim.lsp.config(lsp_server, {
