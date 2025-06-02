@@ -113,11 +113,10 @@ return {
 
         mason_lspconfig.setup_handlers({
             function(lsp_server)
-                vim.lsp.config(lsp_server, {
+                setup_and_start(lsp_server, {
                     capabilities = capabilities,
                     handlers = handlers,
                 })
-                vim.lsp.enable(lsp_server)
             end,
 
             ["lua_ls"] = function()
