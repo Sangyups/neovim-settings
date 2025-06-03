@@ -76,5 +76,5 @@ keymap.set("n", "¬", "<cmd>bnext<CR>")
 
 -- delete all buffers but current
 vim.cmd([[
-  command! -nargs=0 Bda lua vim.api.nvim_command(':%bd | e#')
+  command! -nargs=0 Bda lua vim.api.nvim_command(':%bd | e# | bd#')
 ]])
