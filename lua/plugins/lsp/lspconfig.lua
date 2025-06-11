@@ -225,7 +225,7 @@ return {
                         gopls = {
                             hints = {
                                 rangeVariableTypes = true,
-                                parameterNames = true,
+                                parameterNames = false,
                                 constantValues = true,
                                 assignVariableTypes = true,
                                 compositeLiteralFields = true,
