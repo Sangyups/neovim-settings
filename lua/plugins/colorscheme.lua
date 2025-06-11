@@ -20,7 +20,12 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("vague").setup({ transparent = true })
+            require("vague").setup({
+                transparent = true,
+                style = {
+                    strings = "bold",
+                },
+            })
             vim.cmd("colorscheme vague")
             vim.cmd(":hi statusline guibg=NONE")
         end,
