@@ -28,6 +28,8 @@ keymap.set("n", "N", "Nzz")
 
 keymap.set({ "x" }, "il", "g_o^o", { noremap = true, silent = true })
 keymap.set({ "o" }, "il", ":normal vil<CR>", { noremap = true, silent = true })
+keymap.set({ "o", "x" }, "ar", "a]", { noremap = true, silent = true })
+keymap.set({ "o", "x" }, "ir", "i]", { noremap = true, silent = true })
 keymap.set("o", "_", "^", { noremap = true })
 
 keymap.set("v", "∆", ":m '>+1<CR>gv=gv", opts)
