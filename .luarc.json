@@ -1,0 +1,11 @@
+{
+  "diagnostics": {
+    "globals": ["vim"]
+  },
+  "hint": {
+    "enable": true
+  },
+  "workspace": {
+    "library": ["$VIMRUNTIME/lua", "/Users/sangyup/.config/nvim/lua"]
+  }
+}
