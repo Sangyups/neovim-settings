@@ -1,7 +1,7 @@
 return {
     "williamboman/mason.nvim",
     dependencies = {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
@@ -24,7 +24,7 @@ return {
             ensure_installed = {
                 "lua_ls",
             },
-            automatic_installation = true,
+            automatic_enable = true,
         })
 
         mason_tool_installer.setup({
