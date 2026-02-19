@@ -20,6 +20,7 @@ luac.out
 
 # Logs
 *.log
+.nvimlog
 
 # Libraries
 *.lib
