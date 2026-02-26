@@ -1,3 +1,26 @@
+local uv = vim.uv or vim.loop
+
+local function has_root_file(cwd, filename)
+    return uv.fs_stat(cwd .. "/" .. filename) ~= nil
+end
+
+local function is_jvm_project(cwd)
+    return has_root_file(cwd, "pom.xml")
+        or has_root_file(cwd, "build.gradle")
+        or has_root_file(cwd, "build.gradle.kts")
+end
+
+local function apply_project_colorscheme()
+    local cwd = uv.cwd() or vim.fn.getcwd()
+    local colorscheme = is_jvm_project(cwd) and "jb" or "vague"
+
+    vim.cmd("colorscheme " .. colorscheme)
+
+    if colorscheme == "vague" then
+        vim.cmd("hi statusline guibg=NONE")
+    end
+end
+
 return {
     {
         "rose-pine/neovim",
@@ -26,8 +49,18 @@ return {
                     strings = "bold",
                 },
             })
-            vim.cmd("colorscheme vague")
-            vim.cmd(":hi statusline guibg=NONE")
+        end,
+    },
+    {
+        "nickkadutskyi/jb.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            -- require("jb").setup({ transparent = true })
+            vim.api.nvim_create_autocmd("VimEnter", {
+                once = true,
+                callback = apply_project_colorscheme,
+            })
         end,
     },
 }
