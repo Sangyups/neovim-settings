@@ -18,6 +18,8 @@ local function apply_project_colorscheme()
 
     if colorscheme == "vague" then
         vim.cmd("hi statusline guibg=NONE")
+    elseif colorscheme == "jb" then
+        vim.api.nvim_set_hl(0, "TelescopePreviewLine", { link = "Search" })
     end
 end
 
