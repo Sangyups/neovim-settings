@@ -16,6 +16,8 @@ return {
                 mappings = {
                     n = {
                         ["<C-c>"] = actions.close,
+                        ["<C-p>"] = actions.move_selection_previous,
+                        ["<C-n>"] = actions.move_selection_next,
                     },
                 },
             },
