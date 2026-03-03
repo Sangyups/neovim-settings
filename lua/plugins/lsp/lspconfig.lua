@@ -3,14 +3,12 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
+            "saghen/blink.cmp",
             { "antosha417/nvim-lsp-file-operations", config = true },
             { "j-hui/fidget.nvim", config = true },
             "mason-org/mason-lspconfig.nvim",
         },
         config = function()
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
             local keymap = vim.keymap -- for conciseness
 
             local function set_lsp_float_highlights()
@@ -102,7 +100,7 @@ return {
             })
 
             -- used to enable autocompletion (assign to every lsp server config)
-            local capabilities = cmp_nvim_lsp.default_capabilities()
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
 
             vim.lsp.config("*", { capabilities = capabilities })
 
