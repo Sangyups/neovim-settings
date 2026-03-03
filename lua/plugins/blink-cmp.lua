@@ -40,8 +40,8 @@ return {
         cmdline = {
             keymap = {
                 preset = "none",
-                ["<Tab>"] = { "show", "select_next", "fallback" },
-                ["<S-Tab>"] = { "show", "select_prev", "fallback" },
+                ["<Tab>"] = { "show_and_insert_or_accept_single", "select_next", "fallback" },
+                ["<S-Tab>"] = { "show_and_insert_or_accept_single", "select_prev", "fallback" },
                 ["<C-e>"] = { "cancel", "fallback" },
             },
         },
