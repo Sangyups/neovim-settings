@@ -24,10 +24,16 @@ return {
                 sh = { "shfmt" },
                 cpp = { "clang-format" },
             },
-            format_after_save = {
-                lsp_fallback = true,
-                async = true,
-            },
+            format_after_save = function(bufnr)
+                if vim.bo[bufnr].filetype == "java" then
+                    return
+                end
+
+                return {
+                    lsp_fallback = true,
+                    async = true,
+                }
+            end,
         })
 
         vim.keymap.set({ "n", "v" }, "<leader>fm", function()
