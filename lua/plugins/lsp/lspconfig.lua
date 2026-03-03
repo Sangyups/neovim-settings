@@ -47,7 +47,10 @@ return {
                         },
                     })
 
-                    vim.lsp.inlay_hint.enable()
+                    -- Java buffers can attach multiple LSP clients (jdtls + spring-boot), which can
+                    -- trigger Neovim inlay-hint crash: https://github.com/neovim/neovim/issues/36318.
+                    local is_java = vim.bo[ev.buf].filetype == "java"
+                    vim.lsp.inlay_hint.enable(not is_java, { bufnr = ev.buf })
 
                     -- set keybinds
                     opts.desc = "Show LSP references"
@@ -212,6 +215,7 @@ return {
     },
     {
         "nvim-java/nvim-java",
+        ft = { "java" },
         config = function()
             require("java").setup()
             local has_mise = vim.fn.executable("mise") == 1
