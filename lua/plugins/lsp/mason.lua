@@ -23,7 +23,12 @@ return {
         mason_lspconfig.setup({
             ensure_installed = {
                 "lua_ls",
+                "basedpyright",
+                "ts_ls",
+                "dockerls",
                 "yamlls",
+                "jsonls",
+                "bashls",
             },
             automatic_enable = true,
         })
@@ -31,7 +36,9 @@ return {
         mason_tool_installer.setup({
             ensure_installed = {
                 "stylua",
-                "clang-format",
+                "prettier",
+                "ruff",
+                "isort",
             },
         })
     end,
