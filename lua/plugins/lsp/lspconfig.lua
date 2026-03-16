@@ -210,7 +210,6 @@ return {
                     },
                 },
             })
-            vim.cmd("autocmd BufRead,BufNewFile Dockerfile* setfiletype dockerfile")
         end,
     },
     {
