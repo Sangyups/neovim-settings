@@ -72,3 +72,7 @@ chmod u+x nvim.appimage
 ```sh
 alias vim="nvim"
 ```
+
+## Formatter
+
+This project uses [StyLua](https://github.com/JohnnyMorganz/StyLua) as the default Lua formatter. Configuration is defined in `.stylua.toml`.
