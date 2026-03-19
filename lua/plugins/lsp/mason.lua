@@ -36,6 +36,7 @@ return {
         mason_tool_installer.setup({
             ensure_installed = {
                 "stylua",
+                "shfmt",
                 "prettier",
                 "ruff",
                 "isort",
