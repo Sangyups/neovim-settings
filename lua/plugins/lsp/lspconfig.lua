@@ -268,6 +268,7 @@ return {
                 { name = "JavaSE-11", tool = "java@temurin-11" },
                 { name = "JavaSE-17", tool = "java@temurin-17" },
                 { name = "JavaSE-21", tool = "java@temurin-21" },
+                { name = "JavaSE-25", tool = "java@temurin-25" },
             }
 
             local runtimes = {}
