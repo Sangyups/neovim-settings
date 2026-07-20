@@ -45,6 +45,11 @@ local function apply_project_colorscheme()
     if colorscheme == "vague" then
         vim.cmd("hi statusline guibg=NONE")
     elseif colorscheme == "jb" then
+        vim.o.background = "light"
+        vim.opt.guicursor =
+            "n-v-c-sm:block-Cursor,i-ci-ve:ver25-CursorI,r-cr-o:hor20-Cursor,t:block-blinkon500-blinkoff500-TermCursor"
+        vim.api.nvim_set_hl(0, "Cursor", { fg = "#F5F5F5", bg = "#1A365D" })
+        vim.api.nvim_set_hl(0, "CursorI", { fg = "#FFFFFF", bg = "#0056B3" })
         set_highlight_without_underline("TelescopePreviewLine", "Search")
         set_highlight_without_underline("TelescopePreviewMatch", "Search")
         set_highlight_without_underline("TelescopeMatching", "TelescopeMatching")

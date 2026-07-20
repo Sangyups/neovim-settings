@@ -11,17 +11,6 @@ return {
         config = function()
             local keymap = vim.keymap -- for conciseness
 
-            local function set_lsp_float_highlights()
-                vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1f2335" })
-                vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white", bg = "#1f2335" })
-            end
-
-            vim.api.nvim_create_autocmd("ColorScheme", {
-                group = vim.api.nvim_create_augroup("LspFloatHighlights", { clear = true }),
-                callback = set_lsp_float_highlights,
-            })
-            set_lsp_float_highlights()
-
             local border = "rounded"
 
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -290,6 +279,7 @@ return {
             vim.lsp.config("jdtls", {
                 settings = {
                     java = {
+                        home = "~/.local/share/mise/installs/java/temurin-21",
                         configuration = {
                             runtimes = runtimes,
                         },
