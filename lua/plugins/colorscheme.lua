@@ -1,59 +1,6 @@
-local function has_root_file(cwd, filename)
-    return vim.fn.filereadable(cwd .. "/" .. filename) == 1
-end
-
-local function is_jvm_project(cwd)
-    return has_root_file(cwd, "pom.xml") or has_root_file(cwd, "build.gradle") or has_root_file(cwd, "build.gradle.kts")
-end
-
-local function set_highlight_without_underline(target, source)
-    local ok, source_hl = pcall(vim.api.nvim_get_hl, 0, { name = source, link = false })
-    if not ok or type(source_hl) ~= "table" or next(source_hl) == nil then
-        return
-    end
-
-    ---@type vim.api.keyset.highlight
-    local hl = {
-        fg = source_hl.fg,
-        bg = source_hl.bg,
-        sp = source_hl.sp,
-        blend = source_hl.blend,
-        bold = source_hl.bold,
-        standout = source_hl.standout,
-        strikethrough = source_hl.strikethrough,
-        italic = source_hl.italic,
-        reverse = source_hl.reverse,
-        nocombine = source_hl.nocombine,
-        ctermfg = source_hl.ctermfg,
-        ctermbg = source_hl.ctermbg,
-        underline = false,
-        undercurl = false,
-        underdouble = false,
-        underdotted = false,
-        underdashed = false,
-    }
-
-    vim.api.nvim_set_hl(0, target, hl)
-end
-
 local function apply_project_colorscheme()
-    local cwd = vim.fn.getcwd()
-    local colorscheme = is_jvm_project(cwd) and "jb" or "vague"
-
-    vim.cmd("colorscheme " .. colorscheme)
-
-    if colorscheme == "vague" then
-        vim.cmd("hi statusline guibg=NONE")
-    elseif colorscheme == "jb" then
-        vim.o.background = "light"
-        vim.opt.guicursor =
-            "n-v-c-sm:block-Cursor,i-ci-ve:ver25-CursorI,r-cr-o:hor20-Cursor,t:block-blinkon500-blinkoff500-TermCursor"
-        vim.api.nvim_set_hl(0, "Cursor", { fg = "#F5F5F5", bg = "#1A365D" })
-        vim.api.nvim_set_hl(0, "CursorI", { fg = "#FFFFFF", bg = "#0056B3" })
-        set_highlight_without_underline("TelescopePreviewLine", "Search")
-        set_highlight_without_underline("TelescopePreviewMatch", "Search")
-        set_highlight_without_underline("TelescopeMatching", "TelescopeMatching")
-    end
+    vim.cmd("colorscheme vague")
+    vim.cmd("hi statusline guibg=NONE")
 end
 
 return {
