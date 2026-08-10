@@ -280,6 +280,13 @@ return {
                 settings = {
                     java = {
                         home = "~/.local/share/mise/installs/java/temurin-21",
+                        import = {
+                            gradle = {
+                                java = {
+                                    home = "~/.local/share/mise/installs/java/temurin-21",
+                                },
+                            },
+                        },
                         configuration = {
                             runtimes = runtimes,
                         },
