@@ -36,8 +36,8 @@ return {
                         },
                     })
 
-                    -- Java buffers can attach multiple LSP clients (jdtls + spring-boot), which can
-                    -- trigger Neovim inlay-hint crash: https://github.com/neovim/neovim/issues/36318.
+                    -- Keep Java inlay hints disabled for the Neovim crash workaround:
+                    -- https://github.com/neovim/neovim/issues/36318.
                     local is_java = vim.bo[ev.buf].filetype == "java"
                     vim.lsp.inlay_hint.enable(not is_java, { bufnr = ev.buf })
 
@@ -199,101 +199,6 @@ return {
                     },
                 },
             })
-        end,
-    },
-    {
-        "nvim-java/nvim-java",
-        ft = { "java" },
-        config = function()
-            require("java").setup()
-            local has_mise = vim.fn.executable("mise") == 1
-            if not has_mise then
-                vim.notify(
-                    "nvim-java: `mise` is not installed (or not in PATH); skipping Java runtime auto-resolution",
-                    vim.log.levels.WARN
-                )
-            end
-
-            local function get_mise_runtime_path(tool)
-                if not has_mise then
-                    return nil
-                end
-
-                local ok, result = pcall(function()
-                    return vim.system({ "mise", "where", tool }, { text = true }):wait()
-                end)
-                if not ok then
-                    vim.notify(
-                        string.format("nvim-java: error running `mise where %s`: %s", tool, tostring(result)),
-                        vim.log.levels.WARN
-                    )
-                    return nil
-                end
-
-                if result.code ~= 0 then
-                    local err = vim.trim(result.stderr or "")
-                    vim.notify(
-                        string.format(
-                            "nvim-java: failed to resolve `%s` via mise%s",
-                            tool,
-                            err ~= "" and ": " .. err or ""
-                        ),
-                        vim.log.levels.WARN
-                    )
-                    return nil
-                end
-
-                local path = vim.trim(result.stdout or "")
-                if path == "" then
-                    vim.notify(string.format("nvim-java: empty path from `mise where %s`", tool), vim.log.levels.WARN)
-                    return nil
-                end
-
-                return path
-            end
-
-            local runtime_specs = {
-                { name = "JavaSE-1.8", tool = "java@zulu-8" },
-                { name = "JavaSE-11", tool = "java@temurin-11" },
-                { name = "JavaSE-17", tool = "java@temurin-17" },
-                { name = "JavaSE-21", tool = "java@temurin-21" },
-                { name = "JavaSE-25", tool = "java@temurin-25" },
-            }
-
-            local runtimes = {}
-            for _, runtime in ipairs(runtime_specs) do
-                local path = get_mise_runtime_path(runtime.tool)
-                local default = false
-                if runtime.name == "JavaSE-17" then
-                    default = true
-                end
-                if path then
-                    table.insert(runtimes, {
-                        name = runtime.name,
-                        path = path,
-                        default = default,
-                    })
-                end
-            end
-
-            vim.lsp.config("jdtls", {
-                settings = {
-                    java = {
-                        home = "~/.local/share/mise/installs/java/temurin-21",
-                        import = {
-                            gradle = {
-                                java = {
-                                    home = "~/.local/share/mise/installs/java/temurin-21",
-                                },
-                            },
-                        },
-                        configuration = {
-                            runtimes = runtimes,
-                        },
-                    },
-                },
-            })
-            vim.lsp.enable("jdtls")
         end,
     },
 }

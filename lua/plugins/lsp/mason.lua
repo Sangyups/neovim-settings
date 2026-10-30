@@ -22,6 +22,7 @@ return {
 
         mason_lspconfig.setup({
             ensure_installed = {
+                "jdtls",
                 "lua_ls",
                 "basedpyright",
                 "ts_ls",
