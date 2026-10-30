@@ -8,6 +8,7 @@ A modular and modern Neovim configuration optimized for professional development
 - **Project-Aware UI**: Automatically switches colorschemes based on your workspace context to provide an optimal visual environment.
 - **Smart Formatting**: Out-of-the-box formatting for various languages including JS/TS, Python, Go, Lua, and more via [conform.nvim](https://github.com/stevearc/conform.nvim).
 - **LSP & Tool Management**: Seamlessly install and manage LSPs, linters, and formatters using [Mason](https://github.com/williamboman/mason.nvim).
+- **Syntax-Aware Editing**: Treesitter highlighting, indentation, text objects, and native Neovim syntax-node selection.
 - **Optimized Performance**: Lazy-loading and efficient plugin management using `lazy.nvim` for a snappy experience.
 
 ## 🛠 Pre-Requisite
@@ -36,7 +37,8 @@ rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
 
 This configuration requires several external tools for building high-performance plugins and full functionality:
 
-- **Core**: `neovim` (>= 0.10), `git`, `ripgrep`, `fzf`, `lazygit`
+- **Core**: `neovim` (>= 0.12), `git`, `ripgrep`, `fzf`, `lazygit`
+- **Treesitter**: `tree-sitter-cli` (>= 0.26.1), `tar`, `curl`, and a C compiler. Install the CLI through a package manager rather than npm; the `tree-sitter` library package alone does not provide the CLI. See the [upstream requirements](https://github.com/nvim-treesitter/nvim-treesitter#requirements).
 - **Build Tools**: Required for compiling native extensions (e.g., `telescope-fzf-native`).
 - **Font**: A [Nerd Font](https://www.nerdfonts.com/) is **highly recommended** for icons (e.g., JetBrainsMono Nerd Font).
 
@@ -47,7 +49,7 @@ This configuration requires several external tools for building high-performance
 xcode-select --install
 
 # 2. Install core tools via Homebrew
-brew install neovim ripgrep fzf lazygit
+brew install neovim ripgrep fzf lazygit tree-sitter-cli
 ```
 
 #### Ubuntu
@@ -55,12 +57,19 @@ brew install neovim ripgrep fzf lazygit
 ```sh
 # 1. Install build-essential and core tools
 sudo apt update
-sudo apt install build-essential ripgrep fzf libfuse2
+sudo apt install build-essential git curl tar ripgrep fzf libfuse2
 
 # 2. Install Neovim AppImage
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
+```
+
+Also install `tree-sitter-cli` >= 0.26.1 using a package manager available on your system. Verify both versions before starting Neovim:
+
+```sh
+nvim --version
+tree-sitter --version
 ```
 
 ## 🚀 How to Install
@@ -84,6 +93,44 @@ Add this to your `.zshrc` or `.bashrc`:
 ```sh
 alias vim="nvim"
 ```
+
+## Treesitter Migration and Updates
+
+The configuration is prepared for the `main` branches of `nvim-treesitter` and `nvim-treesitter-textobjects`. The current `lazy-lock.json` still pins the older implementations; plugin and parser updates remain pending. Compatibility branches keep those pinned versions usable during the transition.
+
+The migrated configuration:
+
+- Loads Treesitter at startup with `lazy = false`.
+- Uses the new installation API for the configured parser list and automatically installs supported parsers when opening other filetypes.
+- Enables highlighting with `vim.treesitter.start()` and Treesitter indentation when an indentation query is available.
+- Configures textobjects through its independent API while preserving the existing selection and movement keys.
+- Uses Neovim 0.12's native `vim.treesitter.select()` for expanding and shrinking selections.
+
+| Keys | Mode | Action |
+| --- | --- | --- |
+| `<C-space>` | Normal / Visual | Select a syntax node or expand to its parent |
+| `<BS>` | Visual | Shrink to a child syntax node |
+| `af` / `if` | Visual / Operator-pending | Select the outer / inner function |
+| `ac` / `ic` | Visual / Operator-pending | Select the outer / inner class |
+| `aa` / `ia` | Visual / Operator-pending | Select the outer / inner parameter |
+| `ai` / `ii`, `al` | Visual / Operator-pending | Select conditional parts or an outer loop |
+| `]f` / `[f`, `]F` / `[F` | Normal / Visual / Operator-pending | Jump to the next / previous function start or end |
+
+Movement keys also use `c`, `i`, and `l` for classes, conditionals, and loops; uppercase variants target their ends.
+
+### Completing the Update
+
+1. Back up the configuration, including `lazy-lock.json`, and verify the prerequisites above.
+2. Update Treesitter and textobjects together from Neovim:
+
+   ```vim
+   :Lazy update nvim-treesitter nvim-treesitter-textobjects
+   ```
+
+3. Wait for Lazy's `:TSUpdate` build hook and parser downloads to finish, then restart Neovim. Run `:TSUpdate` again if parser updates need to be retried.
+4. Run `:checkhealth nvim-treesitter` and open representative files to check highlighting, indentation, `<C-space>`, `af`, and `]f`. Review the resulting `lazy-lock.json` changes before committing.
+
+Keep parsers aligned with the plugin's queries: new queries with old parsers can produce query errors. The currently pinned legacy textobjects also reproduces a `]f` error on Neovim 0.12; the migrated configuration passed movement checks against the new implementation. Restoring the lockfile alone does not restore parser binaries or Mason-managed tools.
 
 ## 👨‍💻 Project Development
 
