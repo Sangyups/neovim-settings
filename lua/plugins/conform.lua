@@ -20,7 +20,6 @@ return {
                 graphql = { "prettier" },
                 lua = { "stylua" },
                 python = { "ruff_format", "isort" },
-                go = { "gofumpt" },
                 sh = { "shfmt" },
                 cpp = { "clang-format" },
             },
@@ -30,7 +29,7 @@ return {
                 end
 
                 return {
-                    lsp_fallback = true,
+                    lsp_format = "fallback",
                     async = true,
                 }
             end,
@@ -38,7 +37,7 @@ return {
 
         vim.keymap.set({ "n", "v" }, "<leader>fm", function()
             conform.format({
-                lsp_fallback = true,
+                lsp_format = "fallback",
                 async = false,
             })
         end, { desc = "Format file or range (in visual mode)" })

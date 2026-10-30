@@ -1,23 +1,26 @@
 return {
     "ThePrimeagen/refactoring.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    lazy = false,
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
+        "lewis6991/async.nvim",
     },
     config = function()
-        require("refactoring").setup()
+        local refactoring = require("refactoring")
+        refactoring.setup()
 
-        local opts = { silent = true }
+        local function map(lhs, method, desc, mode)
+            vim.keymap.set(mode or { "n", "x" }, lhs, function()
+                return refactoring[method]()
+            end, { expr = true, silent = true, desc = desc })
+        end
 
-        vim.keymap.set("x", "<leader>rf", ":Refactor extract<CR>")
-        vim.keymap.set("x", "<leader>rv", ":Refactor extract_var<CR>", opts)
+        map("<leader>rf", "extract_func", "Extract function")
+        map("<leader>rv", "extract_var", "Extract variable")
+        map("<leader>ri", "inline_var", "Inline variable")
+        map("<leader>rI", "inline_func", "Inline function")
 
-        vim.keymap.set({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
-
-        vim.keymap.set("n", "<leader>rI", ":Refactor inline_func")
-
-        vim.keymap.set("n", "<leader>rb", ":Refactor extract_block")
-        vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
+        -- Block extraction now uses the function operator followed by a motion/textobject.
+        map("<leader>rb", "extract_func", "Extract block using motion", "n")
+        map("<leader>rbf", "extract_func_to_file", "Extract block to file using motion", "n")
     end,
 }

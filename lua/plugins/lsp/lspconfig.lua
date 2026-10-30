@@ -4,7 +4,11 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "saghen/blink.cmp",
-            { "antosha417/nvim-lsp-file-operations", config = true },
+            {
+                "antosha417/nvim-lsp-file-operations",
+                dependencies = { "nvim-tree/nvim-tree.lua" },
+                config = true,
+            },
             { "j-hui/fidget.nvim", config = true },
             "mason-org/mason-lspconfig.nvim",
         },
@@ -92,7 +96,11 @@ return {
             })
 
             -- used to enable autocompletion (assign to every lsp server config)
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
+            local capabilities = vim.tbl_deep_extend(
+                "force",
+                require("blink.cmp").get_lsp_capabilities(),
+                require("lsp-file-operations").default_capabilities()
+            )
 
             vim.lsp.config("*", { capabilities = capabilities })
 
