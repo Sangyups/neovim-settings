@@ -1,8 +1,3 @@
-local function apply_project_colorscheme()
-    vim.cmd("colorscheme vague")
-    vim.cmd("hi statusline guibg=NONE")
-end
-
 return {
     {
         "rose-pine/neovim",
@@ -31,17 +26,13 @@ return {
                     strings = "bold",
                 },
             })
+            vim.cmd("colorscheme vague")
         end,
     },
     {
         "nickkadutskyi/jb.nvim",
         lazy = false,
         priority = 1000,
-        config = function()
-            vim.api.nvim_create_autocmd("VimEnter", {
-                once = true,
-                callback = apply_project_colorscheme,
-            })
-        end,
+        config = true,
     },
 }
